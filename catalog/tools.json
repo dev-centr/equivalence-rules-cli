@@ -1,0 +1,1659 @@
+{
+  "version": 1,
+  "meta": {
+    "id": "dev-centr/equivalence-rules-cli",
+    "defaultBranch": "main",
+    "catalogFile": "catalog/tools.sdl",
+    "equivalenceDomain": "cli"
+  },
+  "contexts": [
+    {
+      "id": "windows/winget",
+      "label": "Windows (winget)",
+      "family": "windows",
+      "packageManager": "winget",
+      "detect": "where winget"
+    },
+    {
+      "id": "windows/scoop",
+      "label": "Windows (Scoop)",
+      "family": "windows",
+      "packageManager": "scoop",
+      "detect": "where scoop"
+    },
+    {
+      "id": "windows/choco",
+      "label": "Windows (Chocolatey)",
+      "family": "windows",
+      "packageManager": "choco",
+      "detect": "where choco"
+    },
+    {
+      "id": "macos/homebrew",
+      "label": "macOS (Homebrew)",
+      "family": "macos",
+      "packageManager": "homebrew",
+      "detect": "which brew"
+    },
+    {
+      "id": "macos/nix/default",
+      "label": "macOS (Nix)",
+      "family": "macos",
+      "packageManager": "nix",
+      "detect": "which nix"
+    },
+    {
+      "id": "linux/debian/default",
+      "label": "Debian/Ubuntu (apt)",
+      "family": "linux",
+      "packageManager": "apt",
+      "detect": "which apt-get"
+    },
+    {
+      "id": "linux/ubuntu/default",
+      "label": "Ubuntu (apt)",
+      "family": "linux",
+      "packageManager": "apt",
+      "inherits": "linux/debian/default"
+    },
+    {
+      "id": "linux/fedora/default",
+      "label": "Fedora/RHEL (dnf)",
+      "family": "linux",
+      "packageManager": "dnf",
+      "detect": "which dnf"
+    },
+    {
+      "id": "linux/arch/default",
+      "label": "Arch Linux (pacman)",
+      "family": "linux",
+      "packageManager": "pacman",
+      "detect": "which pacman"
+    },
+    {
+      "id": "linux/alpine/default",
+      "label": "Alpine (apk)",
+      "family": "linux",
+      "packageManager": "apk",
+      "detect": "which apk"
+    },
+    {
+      "id": "linux/nix/default",
+      "label": "Linux (Nix)",
+      "family": "linux",
+      "packageManager": "nix",
+      "detect": "which nix"
+    },
+    {
+      "id": "linux/guix/default",
+      "label": "GNU Guix",
+      "family": "linux",
+      "packageManager": "guix",
+      "detect": "which guix"
+    },
+    {
+      "id": "linux/homebrew",
+      "label": "Linux (Homebrew)",
+      "family": "linux",
+      "packageManager": "homebrew",
+      "detect": "which brew"
+    },
+    {
+      "id": "default/npm-global",
+      "label": "Node.js (npm global)",
+      "family": "cross",
+      "packageManager": "npm",
+      "detect": "which npm"
+    },
+    {
+      "id": "default/pnpm-dlx",
+      "label": "Node.js (pnpm dlx one-shot)",
+      "family": "cross",
+      "packageManager": "pnpm",
+      "detect": "which pnpm"
+    },
+    {
+      "id": "default/curl-script",
+      "label": "Official install script (curl)",
+      "family": "cross",
+      "packageManager": "script"
+    }
+  ],
+  "tools": [
+    {
+      "id": "turso",
+      "name": "Turso CLI",
+      "description": "Edge SQLite platform CLI for Turso databases and libSQL.",
+      "categories": [
+        "database",
+        "backend",
+        "edge"
+      ],
+      "homepage": "https://turso.tech",
+      "docs": "https://docs.turso.tech/cli",
+      "verifyCommand": "turso --version",
+      "launchCommand": "turso",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#turso-cli",
+          "auditNote": "Immutable Nix profile install for turso-cli."
+        },
+        {
+          "context": "macos/nix/default",
+          "command": "nix profile install nixpkgs#turso-cli"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install --id Chisel.Turso -e --accept-source-agreements --accept-package-agreements",
+          "auditNote": "Turso CLI via winget (Chisel.Turso)."
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install tursodatabase/tap/turso"
+        },
+        {
+          "context": "linux/homebrew",
+          "command": "brew install tursodatabase/tap/turso"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -sSfL https://get.turso.tech/install.sh | bash",
+          "auditNote": "Official Turso install script."
+        }
+      ]
+    },
+    {
+      "id": "convex",
+      "name": "Convex CLI",
+      "description": "Backend-as-a-service CLI for Convex projects.",
+      "categories": [
+        "backend",
+        "database",
+        "serverless"
+      ],
+      "homepage": "https://www.convex.dev",
+      "docs": "https://docs.convex.dev/cli",
+      "verifyCommand": "npx convex --version",
+      "launchCommand": "convex",
+      "install": [
+        {
+          "context": "default/npm-global",
+          "command": "npm install -g convex",
+          "auditNote": "Global npm install; prefer pnpm dlx in projects when possible."
+        },
+        {
+          "context": "default/pnpm-dlx",
+          "command": "pnpm add -g convex"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "npm install -g convex",
+          "auditNote": "Convex via npm; no native brew formula."
+        }
+      ]
+    },
+    {
+      "id": "supabase",
+      "name": "Supabase CLI",
+      "description": "Local development and management CLI for Supabase.",
+      "categories": [
+        "database",
+        "backend",
+        "serverless"
+      ],
+      "homepage": "https://supabase.com",
+      "docs": "https://supabase.com/docs/guides/cli",
+      "verifyCommand": "supabase --version",
+      "launchCommand": "supabase",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#supabase-cli"
+        },
+        {
+          "context": "macos/nix/default",
+          "command": "nix profile install nixpkgs#supabase-cli"
+        },
+        {
+          "context": "windows/scoop",
+          "command": "scoop bucket add supabase https://github.com/supabase/scoop-bucket.git && scoop install supabase"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install supabase/tap/supabase"
+        },
+        {
+          "context": "default/npm-global",
+          "command": "npm install -g supabase"
+        }
+      ]
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel CLI",
+      "description": "Deploy and manage Vercel projects from the terminal.",
+      "categories": [
+        "deployment",
+        "frontend",
+        "hosting"
+      ],
+      "homepage": "https://vercel.com",
+      "docs": "https://vercel.com/docs/cli",
+      "verifyCommand": "vercel --version",
+      "launchCommand": "vercel",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#vercel-cli"
+        },
+        {
+          "context": "macos/nix/default",
+          "command": "nix profile install nixpkgs#vercel-cli"
+        },
+        {
+          "context": "default/npm-global",
+          "command": "npm install -g vercel"
+        },
+        {
+          "context": "default/pnpm-dlx",
+          "command": "pnpm add -g vercel"
+        }
+      ]
+    },
+    {
+      "id": "netlify",
+      "name": "Netlify CLI",
+      "description": "Build, deploy, and manage Netlify sites.",
+      "categories": [
+        "deployment",
+        "frontend",
+        "hosting"
+      ],
+      "homepage": "https://www.netlify.com",
+      "docs": "https://docs.netlify.com/cli/get-started/",
+      "verifyCommand": "netlify --version",
+      "launchCommand": "netlify",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#netlify-cli"
+        },
+        {
+          "context": "default/npm-global",
+          "command": "npm install -g netlify-cli"
+        }
+      ]
+    },
+    {
+      "id": "flyctl",
+      "name": "Fly.io CLI",
+      "description": "Deploy and manage applications on Fly.io.",
+      "categories": [
+        "deployment",
+        "backend",
+        "hosting"
+      ],
+      "homepage": "https://fly.io",
+      "docs": "https://fly.io/docs/flyctl/",
+      "verifyCommand": "fly version",
+      "launchCommand": "fly",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#flyctl"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install flyctl"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install Fly-io.flyctl"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -L https://fly.io/install.sh | sh"
+        }
+      ]
+    },
+    {
+      "id": "railway",
+      "name": "Railway CLI",
+      "description": "Deploy and manage Railway projects.",
+      "categories": [
+        "deployment",
+        "hosting"
+      ],
+      "homepage": "https://railway.app",
+      "docs": "https://docs.railway.com/develop/cli",
+      "verifyCommand": "railway --version",
+      "launchCommand": "railway",
+      "install": [
+        {
+          "context": "default/npm-global",
+          "command": "npm install -g @railway/cli"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install railway"
+        }
+      ]
+    },
+    {
+      "id": "wrangler",
+      "name": "Wrangler (Cloudflare)",
+      "description": "Cloudflare Workers and Pages CLI.",
+      "categories": [
+        "deployment",
+        "edge",
+        "serverless"
+      ],
+      "homepage": "https://developers.cloudflare.com/workers/wrangler/",
+      "docs": "https://developers.cloudflare.com/workers/wrangler/install-and-update/",
+      "verifyCommand": "wrangler --version",
+      "launchCommand": "wrangler",
+      "install": [
+        {
+          "context": "default/npm-global",
+          "command": "npm install -g wrangler"
+        }
+      ]
+    },
+    {
+      "id": "gh",
+      "name": "GitHub CLI",
+      "description": "Official GitHub command-line tool.",
+      "categories": [
+        "vcs",
+        "git",
+        "devops"
+      ],
+      "homepage": "https://cli.github.com",
+      "docs": "https://cli.github.com/manual/",
+      "verifyCommand": "gh --version",
+      "launchCommand": "gh",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#gh"
+        },
+        {
+          "context": "macos/nix/default",
+          "command": "nix profile install nixpkgs#gh"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install --id GitHub.cli -e"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install gh"
+        },
+        {
+          "context": "linux/debian/default",
+          "command": "sudo mkdir -p /etc/apt/keyrings && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/etc/apt/keyrings/githubcli-archive-keyring.gpg && echo \"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main\" | sudo tee /etc/apt/sources.list.d/github-cli.list && sudo apt update && sudo apt install gh -y"
+        },
+        {
+          "context": "linux/fedora/default",
+          "command": "sudo dnf install gh -y"
+        },
+        {
+          "context": "linux/arch/default",
+          "command": "sudo pacman -S github-cli --noconfirm"
+        }
+      ]
+    },
+    {
+      "id": "glab",
+      "name": "GitLab CLI",
+      "description": "Official GitLab command-line tool.",
+      "categories": [
+        "vcs",
+        "git",
+        "devops"
+      ],
+      "homepage": "https://gitlab.com/gitlab-org/cli",
+      "docs": "https://gitlab.com/gitlab-org/cli/-/blob/main/docs/source/index.md",
+      "verifyCommand": "glab --version",
+      "launchCommand": "glab",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#glab"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install glab"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install --id GitLab.Glab -e"
+        },
+        {
+          "context": "linux/debian/default",
+          "command": "sudo apt install glab -y"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -s https://raw.githubusercontent.com/gitlab-org/cli/main/scripts/install.sh | sudo bash"
+        }
+      ]
+    },
+    {
+      "id": "aws",
+      "name": "AWS CLI v2",
+      "description": "Amazon Web Services command-line interface.",
+      "categories": [
+        "cloud",
+        "devops",
+        "backend"
+      ],
+      "homepage": "https://aws.amazon.com/cli/",
+      "docs": "https://docs.aws.amazon.com/cli/",
+      "verifyCommand": "aws --version",
+      "launchCommand": "aws",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#awscli2"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install awscli"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install Amazon.AWSCLI"
+        },
+        {
+          "context": "linux/debian/default",
+          "command": "curl \"https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip\" -o /tmp/awscliv2.zip && unzip -q /tmp/awscliv2.zip -d /tmp && sudo /tmp/aws/install"
+        }
+      ]
+    },
+    {
+      "id": "gcloud",
+      "name": "Google Cloud CLI",
+      "description": "Google Cloud Platform command-line tool.",
+      "categories": [
+        "cloud",
+        "devops"
+      ],
+      "homepage": "https://cloud.google.com/sdk",
+      "docs": "https://cloud.google.com/sdk/docs",
+      "verifyCommand": "gcloud --version",
+      "launchCommand": "gcloud",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#google-cloud-sdk"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install --cask google-cloud-sdk"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz && tar -xf google-cloud-cli-linux-x86_64.tar.gz && ./google-cloud-sdk/install.sh --quiet"
+        }
+      ]
+    },
+    {
+      "id": "az",
+      "name": "Azure CLI",
+      "description": "Microsoft Azure command-line interface.",
+      "categories": [
+        "cloud",
+        "devops"
+      ],
+      "homepage": "https://learn.microsoft.com/cli/azure/",
+      "docs": "https://learn.microsoft.com/cli/azure/",
+      "verifyCommand": "az version",
+      "launchCommand": "az",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#azure-cli"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install Microsoft.AzureCLI"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install azure-cli"
+        },
+        {
+          "context": "linux/debian/default",
+          "command": "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash"
+        }
+      ]
+    },
+    {
+      "id": "doctl",
+      "name": "DigitalOcean CLI",
+      "description": "Manage DigitalOcean resources from the terminal.",
+      "categories": [
+        "cloud",
+        "devops"
+      ],
+      "homepage": "https://docs.digitalocean.com/reference/doctl/",
+      "docs": "https://docs.digitalocean.com/reference/doctl/how-to/install/",
+      "verifyCommand": "doctl version",
+      "launchCommand": "doctl",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#doctl"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install doctl"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install DigitalOcean.Doctl"
+        }
+      ]
+    },
+    {
+      "id": "docker",
+      "name": "Docker CLI",
+      "description": "Container build and run tooling (Docker Desktop or Engine).",
+      "categories": [
+        "containers",
+        "devops"
+      ],
+      "homepage": "https://www.docker.com",
+      "docs": "https://docs.docker.com/engine/reference/commandline/cli/",
+      "verifyCommand": "docker --version",
+      "launchCommand": "docker",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#docker",
+          "auditNote": "Nix docker CLI only; Docker daemon may need separate setup."
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install Docker.DockerDesktop"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install --cask docker"
+        },
+        {
+          "context": "linux/debian/default",
+          "command": "curl -fsSL https://get.docker.com | sh"
+        }
+      ]
+    },
+    {
+      "id": "podman",
+      "name": "Podman",
+      "description": "Daemonless container engine compatible with Docker CLI.",
+      "categories": [
+        "containers",
+        "devops"
+      ],
+      "homepage": "https://podman.io",
+      "docs": "https://docs.podman.io",
+      "verifyCommand": "podman --version",
+      "launchCommand": "podman",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#podman"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install podman"
+        },
+        {
+          "context": "linux/fedora/default",
+          "command": "sudo dnf install podman -y"
+        },
+        {
+          "context": "linux/debian/default",
+          "command": "sudo apt install podman -y"
+        }
+      ]
+    },
+    {
+      "id": "kubectl",
+      "name": "kubectl",
+      "description": "Kubernetes cluster command-line tool.",
+      "categories": [
+        "kubernetes",
+        "devops"
+      ],
+      "homepage": "https://kubernetes.io/docs/reference/kubectl/",
+      "docs": "https://kubernetes.io/docs/tasks/tools/",
+      "verifyCommand": "kubectl version --client",
+      "launchCommand": "kubectl",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#kubectl"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install kubectl"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install Kubernetes.kubectl"
+        }
+      ]
+    },
+    {
+      "id": "helm",
+      "name": "Helm",
+      "description": "Kubernetes package manager.",
+      "categories": [
+        "kubernetes",
+        "devops"
+      ],
+      "homepage": "https://helm.sh",
+      "docs": "https://helm.sh/docs/intro/install/",
+      "verifyCommand": "helm version",
+      "launchCommand": "helm",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#kubernetes-helm"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install helm"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash"
+        }
+      ]
+    },
+    {
+      "id": "opentofu",
+      "name": "OpenTofu",
+      "description": "Open-source Terraform-compatible infrastructure as code tool.",
+      "categories": [
+        "iac",
+        "devops",
+        "cloud"
+      ],
+      "homepage": "https://opentofu.org",
+      "docs": "https://opentofu.org/docs",
+      "verifyCommand": "tofu version",
+      "launchCommand": "tofu",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#opentofu"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install opentofu"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install OpenTofu.Tofu"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -Lo /tmp/tofu_install.sh https://get.opentofu.org/install/opentofu.sh && sh /tmp/tofu_install.sh"
+        }
+      ]
+    },
+    {
+      "id": "nix",
+      "name": "Nix",
+      "description": "Purely functional package manager for reproducible, immutable dev environments.",
+      "categories": [
+        "package-manager",
+        "immutable",
+        "devops"
+      ],
+      "homepage": "https://nixos.org",
+      "docs": "https://nixos.org/download.html",
+      "verifyCommand": "nix --version",
+      "launchCommand": "nix",
+      "install": [
+        {
+          "context": "default/curl-script",
+          "command": "curl -L https://nixos.org/nix/install | sh -s -- --daemon",
+          "auditNote": "Official Nix installer; enables immutable profile installs for other tools."
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install nix"
+        }
+      ]
+    },
+    {
+      "id": "mise",
+      "name": "mise",
+      "description": "Polyglot runtime version manager (successor patterns to asdf).",
+      "categories": [
+        "version-manager",
+        "toolchain"
+      ],
+      "homepage": "https://mise.jdx.dev",
+      "docs": "https://mise.jdx.dev/getting-started.html",
+      "verifyCommand": "mise --version",
+      "launchCommand": "mise",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#mise"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl https://mise.run | sh"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install mise"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install jdx.mise"
+        }
+      ]
+    },
+    {
+      "id": "uv",
+      "name": "uv",
+      "description": "Fast Python package and project manager.",
+      "categories": [
+        "python",
+        "package-manager"
+      ],
+      "homepage": "https://docs.astral.sh/uv/",
+      "docs": "https://docs.astral.sh/uv/getting-started/installation/",
+      "verifyCommand": "uv --version",
+      "launchCommand": "uv",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#uv"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install uv"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install astral-sh.uv"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -LsSf https://astral.sh/uv/install.sh | sh"
+        }
+      ]
+    },
+    {
+      "id": "deno",
+      "name": "Deno",
+      "description": "Secure JavaScript/TypeScript runtime.",
+      "categories": [
+        "javascript",
+        "runtime"
+      ],
+      "homepage": "https://deno.com",
+      "docs": "https://docs.deno.com/runtime/manual/tools/install",
+      "verifyCommand": "deno --version",
+      "launchCommand": "deno",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#deno"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install deno"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -fsSL https://deno.land/install.sh | sh"
+        }
+      ]
+    },
+    {
+      "id": "bun",
+      "name": "Bun",
+      "description": "All-in-one JavaScript runtime, bundler, and package manager.",
+      "categories": [
+        "javascript",
+        "runtime",
+        "package-manager"
+      ],
+      "homepage": "https://bun.sh",
+      "docs": "https://bun.sh/docs/installation",
+      "verifyCommand": "bun --version",
+      "launchCommand": "bun",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#bun"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -fsSL https://bun.sh/install | bash"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install oven-sh/bun/bun"
+        }
+      ]
+    },
+    {
+      "id": "jq",
+      "name": "jq",
+      "description": "Command-line JSON processor.",
+      "categories": [
+        "utility",
+        "data"
+      ],
+      "homepage": "https://jqlang.org",
+      "docs": "https://jqlang.org/manual/",
+      "verifyCommand": "jq --version",
+      "launchCommand": "jq",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#jq"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install jq"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install jqlang.jq"
+        },
+        {
+          "context": "linux/debian/default",
+          "command": "sudo apt install jq -y"
+        }
+      ]
+    },
+    {
+      "id": "httpie",
+      "name": "HTTPie",
+      "description": "User-friendly HTTP client for the terminal.",
+      "categories": [
+        "utility",
+        "api",
+        "frontend"
+      ],
+      "homepage": "https://httpie.io",
+      "docs": "https://httpie.io/docs/cli",
+      "verifyCommand": "http --version",
+      "launchCommand": "http",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#httpie"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install httpie"
+        },
+        {
+          "context": "default/pnpm-dlx",
+          "command": "pip install httpie"
+        }
+      ]
+    },
+    {
+      "id": "stripe",
+      "name": "Stripe CLI",
+      "description": "Test webhooks and manage Stripe resources locally.",
+      "categories": [
+        "payments",
+        "backend",
+        "api"
+      ],
+      "homepage": "https://stripe.com/docs/stripe-cli",
+      "docs": "https://docs.stripe.com/stripe-cli",
+      "verifyCommand": "stripe --version",
+      "launchCommand": "stripe",
+      "install": [
+        {
+          "context": "macos/homebrew",
+          "command": "brew install stripe/stripe-cli/stripe"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -s https://packages.stripe.dev/api/security/keypair/stripe-cli-gpg/public | gpg --dearmor | sudo tee /usr/share/keyrings/stripe.gpg && echo \"deb [signed-by=/usr/share/keyrings/stripe.gpg] https://packages.stripe.dev/stripe-cli-debian-local stable main\" | sudo tee /etc/apt/sources.list.d/stripe.list && sudo apt update && sudo apt install stripe -y"
+        }
+      ]
+    },
+    {
+      "id": "sentry-cli",
+      "name": "Sentry CLI",
+      "description": "Manage Sentry releases and debug files.",
+      "categories": [
+        "devops",
+        "monitoring"
+      ],
+      "homepage": "https://docs.sentry.io/cli/",
+      "docs": "https://docs.sentry.io/cli/installation/",
+      "verifyCommand": "sentry-cli --version",
+      "launchCommand": "sentry-cli",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#sentry-cli"
+        },
+        {
+          "context": "default/npm-global",
+          "command": "npm install -g @sentry/cli"
+        }
+      ]
+    },
+    {
+      "id": "1password-cli",
+      "name": "1Password CLI",
+      "description": "Access 1Password secrets from scripts and CI.",
+      "categories": [
+        "secrets",
+        "security",
+        "devops"
+      ],
+      "homepage": "https://developer.1password.com/docs/cli/",
+      "docs": "https://developer.1password.com/docs/cli/get-started/",
+      "verifyCommand": "op --version",
+      "launchCommand": "op",
+      "install": [
+        {
+          "context": "macos/homebrew",
+          "command": "brew install 1password-cli"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install AgileBits.1Password.CLI"
+        }
+      ]
+    },
+    {
+      "id": "tailscale",
+      "name": "Tailscale CLI",
+      "description": "WireGuard-based mesh VPN client.",
+      "categories": [
+        "networking",
+        "security",
+        "devops"
+      ],
+      "homepage": "https://tailscale.com",
+      "docs": "https://tailscale.com/kb/1080/client",
+      "verifyCommand": "tailscale version",
+      "launchCommand": "tailscale",
+      "install": [
+        {
+          "context": "macos/homebrew",
+          "command": "brew install tailscale"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install Tailscale.Tailscale"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -fsSL https://tailscale.com/install.sh | sh"
+        }
+      ]
+    },
+    {
+      "id": "direnv",
+      "name": "direnv",
+      "description": "Load and unload environment variables per directory.",
+      "categories": [
+        "environment",
+        "toolchain"
+      ],
+      "homepage": "https://direnv.net",
+      "docs": "https://direnv.net/docs/installation.html",
+      "verifyCommand": "direnv version",
+      "launchCommand": "direnv",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#direnv"
+        },
+        {
+          "context": "macos/nix/default",
+          "command": "nix profile install nixpkgs#direnv"
+        },
+        {
+          "context": "linux/guix/default",
+          "command": "guix install direnv"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install direnv"
+        },
+        {
+          "context": "linux/debian/default",
+          "command": "sudo apt install direnv -y"
+        }
+      ]
+    },
+    {
+      "id": "planetscale",
+      "name": "PlanetScale CLI",
+      "description": "Manage PlanetScale databases and branches.",
+      "categories": [
+        "database",
+        "backend"
+      ],
+      "homepage": "https://planetscale.com",
+      "docs": "https://planetscale.com/docs/reference/planetscale-cli",
+      "verifyCommand": "pscale version",
+      "launchCommand": "pscale",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#pscale"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install planetscale/tap/pscale"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -fsSL https://github.com/planetscale/cli/releases/latest/download/pscale_$(uname -s)_$(uname -m).tar.gz | tar -xz && sudo mv pscale /usr/local/bin/"
+        }
+      ]
+    },
+    {
+      "id": "neonctl",
+      "name": "Neon CLI",
+      "description": "Manage Neon serverless Postgres projects.",
+      "categories": [
+        "database",
+        "backend"
+      ],
+      "homepage": "https://neon.tech",
+      "docs": "https://neon.tech/docs/reference/neon-cli",
+      "verifyCommand": "neonctl --version",
+      "launchCommand": "neonctl",
+      "install": [
+        {
+          "context": "default/npm-global",
+          "command": "npm install -g neonctl"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install neonctl"
+        }
+      ]
+    },
+    {
+      "id": "firebase",
+      "name": "Firebase CLI",
+      "description": "Manage Firebase projects, hosting, and emulators.",
+      "categories": [
+        "backend",
+        "deployment",
+        "serverless"
+      ],
+      "homepage": "https://firebase.google.com",
+      "docs": "https://firebase.google.com/docs/cli",
+      "verifyCommand": "firebase --version",
+      "launchCommand": "firebase",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#firebase-tools"
+        },
+        {
+          "context": "default/npm-global",
+          "command": "npm install -g firebase-tools"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install firebase-cli"
+        }
+      ]
+    },
+    {
+      "id": "prisma",
+      "name": "Prisma CLI",
+      "description": "ORM toolkit and database migration CLI.",
+      "categories": [
+        "database",
+        "backend"
+      ],
+      "homepage": "https://www.prisma.io",
+      "docs": "https://www.prisma.io/docs/orm/tools/prisma-cli",
+      "verifyCommand": "prisma --version",
+      "launchCommand": "prisma",
+      "install": [
+        {
+          "context": "default/npm-global",
+          "command": "npm install -g prisma"
+        },
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#prisma"
+        }
+      ]
+    },
+    {
+      "id": "mongosh",
+      "name": "MongoDB Shell",
+      "description": "Interactive shell for MongoDB.",
+      "categories": [
+        "database",
+        "backend"
+      ],
+      "homepage": "https://www.mongodb.com/products/shell",
+      "docs": "https://www.mongodb.com/docs/mongodb-shell/",
+      "verifyCommand": "mongosh --version",
+      "launchCommand": "mongosh",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#mongosh"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install mongosh"
+        },
+        {
+          "context": "linux/debian/default",
+          "command": "curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor && echo \"deb [ signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse\" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list && sudo apt update && sudo apt install -y mongodb-mongosh"
+        }
+      ]
+    },
+    {
+      "id": "psql",
+      "name": "PostgreSQL Client",
+      "description": "psql and libpq client tools for PostgreSQL.",
+      "categories": [
+        "database",
+        "backend"
+      ],
+      "homepage": "https://www.postgresql.org",
+      "docs": "https://www.postgresql.org/docs/current/app-psql.html",
+      "verifyCommand": "psql --version",
+      "launchCommand": "psql",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#postgresql"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install libpq && brew link --force libpq"
+        },
+        {
+          "context": "linux/debian/default",
+          "command": "sudo apt install postgresql-client -y"
+        },
+        {
+          "context": "linux/fedora/default",
+          "command": "sudo dnf install postgresql -y"
+        }
+      ]
+    },
+    {
+      "id": "terraform",
+      "name": "Terraform",
+      "description": "HashiCorp infrastructure as code tool.",
+      "categories": [
+        "iac",
+        "devops",
+        "cloud"
+      ],
+      "homepage": "https://www.terraform.io",
+      "docs": "https://developer.hashicorp.com/terraform/tutorials",
+      "verifyCommand": "terraform version",
+      "launchCommand": "terraform",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#terraform"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew tap hashicorp/tap && brew install hashicorp/tap/terraform"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install Hashicorp.Terraform"
+        },
+        {
+          "context": "linux/debian/default",
+          "command": "wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg && echo \"deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main\" | sudo tee /etc/apt/sources.list.d/hashicorp.list && sudo apt update && sudo apt install terraform -y"
+        }
+      ]
+    },
+    {
+      "id": "pulumi",
+      "name": "Pulumi CLI",
+      "description": "Infrastructure as code using general-purpose languages.",
+      "categories": [
+        "iac",
+        "devops",
+        "cloud"
+      ],
+      "homepage": "https://www.pulumi.com",
+      "docs": "https://www.pulumi.com/docs/install/",
+      "verifyCommand": "pulumi version",
+      "launchCommand": "pulumi",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#pulumi-bin"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -fsSL https://get.pulumi.com | sh"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install pulumi"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install Pulumi.Pulumi"
+        }
+      ]
+    },
+    {
+      "id": "ansible",
+      "name": "Ansible",
+      "description": "Agentless configuration management and automation.",
+      "categories": [
+        "devops",
+        "iac",
+        "automation"
+      ],
+      "homepage": "https://www.ansible.com",
+      "docs": "https://docs.ansible.com/ansible/latest/installation_guide/",
+      "verifyCommand": "ansible --version",
+      "launchCommand": "ansible",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#ansible"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install ansible"
+        },
+        {
+          "context": "linux/debian/default",
+          "command": "sudo apt install ansible -y"
+        },
+        {
+          "context": "linux/fedora/default",
+          "command": "sudo dnf install ansible -y"
+        }
+      ]
+    },
+    {
+      "id": "vault",
+      "name": "HashiCorp Vault CLI",
+      "description": "Secrets management CLI for HashiCorp Vault.",
+      "categories": [
+        "secrets",
+        "security",
+        "devops"
+      ],
+      "homepage": "https://www.vaultproject.io",
+      "docs": "https://developer.hashicorp.com/vault/docs/install",
+      "verifyCommand": "vault version",
+      "launchCommand": "vault",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#vault"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew tap hashicorp/tap && brew install hashicorp/tap/vault"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install Hashicorp.Vault"
+        }
+      ]
+    },
+    {
+      "id": "ngrok",
+      "name": "ngrok",
+      "description": "Expose local servers to the internet securely.",
+      "categories": [
+        "networking",
+        "development",
+        "api"
+      ],
+      "homepage": "https://ngrok.com",
+      "docs": "https://ngrok.com/docs/getting-started/",
+      "verifyCommand": "ngrok version",
+      "launchCommand": "ngrok",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#ngrok"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install ngrok/ngrok/ngrok"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install Ngrok.Ngrok"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo \"deb https://ngrok-agent.s3.amazonaws.com buster main\" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok -y"
+        }
+      ]
+    },
+    {
+      "id": "cloudflared",
+      "name": "cloudflared",
+      "description": "Cloudflare tunnel client for secure local exposure.",
+      "categories": [
+        "networking",
+        "edge",
+        "development"
+      ],
+      "homepage": "https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/",
+      "docs": "https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/",
+      "verifyCommand": "cloudflared --version",
+      "launchCommand": "cloudflared",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#cloudflared"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install cloudflared"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install Cloudflare.cloudflared"
+        }
+      ]
+    },
+    {
+      "id": "localstack",
+      "name": "LocalStack CLI",
+      "description": "Local AWS cloud stack emulator CLI.",
+      "categories": [
+        "cloud",
+        "development",
+        "backend"
+      ],
+      "homepage": "https://localstack.cloud",
+      "docs": "https://docs.localstack.cloud/getting-started/installation/",
+      "verifyCommand": "localstack --version",
+      "launchCommand": "localstack",
+      "install": [
+        {
+          "context": "default/pnpm-dlx",
+          "command": "pip install localstack"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install localstack/tap/localstack-cli"
+        }
+      ]
+    },
+    {
+      "id": "act",
+      "name": "act",
+      "description": "Run GitHub Actions locally.",
+      "categories": [
+        "devops",
+        "ci",
+        "git"
+      ],
+      "homepage": "https://github.com/nektos/act",
+      "docs": "https://nektosact.com",
+      "verifyCommand": "act --version",
+      "launchCommand": "act",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#act"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install act"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install nektos.act"
+        }
+      ]
+    },
+    {
+      "id": "cosign",
+      "name": "cosign",
+      "description": "Container and artifact signing (Sigstore).",
+      "categories": [
+        "security",
+        "devops",
+        "containers"
+      ],
+      "homepage": "https://docs.sigstore.dev/cosign/overview/",
+      "docs": "https://docs.sigstore.dev/cosign/system_installation/",
+      "verifyCommand": "cosign version",
+      "launchCommand": "cosign",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#cosign"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install cosign"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -O -L https://github.com/sigstore/cosign/releases/latest/download/cosign-linux-amd64 && sudo mv cosign-linux-amd64 /usr/local/bin/cosign && sudo chmod +x /usr/local/bin/cosign"
+        }
+      ]
+    },
+    {
+      "id": "doppler",
+      "name": "Doppler CLI",
+      "description": "Sync secrets and environment variables across teams.",
+      "categories": [
+        "secrets",
+        "security",
+        "devops"
+      ],
+      "homepage": "https://www.doppler.com",
+      "docs": "https://docs.doppler.com/docs/install-cli",
+      "verifyCommand": "doppler --version",
+      "launchCommand": "doppler",
+      "install": [
+        {
+          "context": "macos/homebrew",
+          "command": "brew install dopplerhq/cli/doppler"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install Doppler.doppler"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "curl -Ls --tlsv1.2 --proto \"=https\" --retry 3 https://cli.doppler.com/install.sh | sudo sh"
+        }
+      ]
+    },
+    {
+      "id": "just",
+      "name": "just",
+      "description": "Command runner for project-specific recipes.",
+      "categories": [
+        "utility",
+        "automation",
+        "development"
+      ],
+      "homepage": "https://just.systems",
+      "docs": "https://just.systems/man/en/",
+      "verifyCommand": "just --version",
+      "launchCommand": "just",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#just"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install just"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install Casey.Just"
+        },
+        {
+          "context": "linux/debian/default",
+          "command": "sudo apt install just -y"
+        }
+      ]
+    },
+    {
+      "id": "task",
+      "name": "Task (go-task)",
+      "description": "Task runner / build tool alternative to Make.",
+      "categories": [
+        "utility",
+        "automation",
+        "development"
+      ],
+      "homepage": "https://taskfile.dev",
+      "docs": "https://taskfile.dev/docs/installation/",
+      "verifyCommand": "task --version",
+      "launchCommand": "task",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#go-task"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install go-task"
+        },
+        {
+          "context": "default/curl-script",
+          "command": "sh -c \"$(curl --location https://taskfile.dev/install.sh)\" -- -d -b /usr/local/bin"
+        }
+      ]
+    },
+    {
+      "id": "mkcert",
+      "name": "mkcert",
+      "description": "Create locally trusted development certificates.",
+      "categories": [
+        "security",
+        "development",
+        "utility"
+      ],
+      "homepage": "https://github.com/FiloSottile/mkcert",
+      "docs": "https://github.com/FiloSottile/mkcert#installation",
+      "verifyCommand": "mkcert -version",
+      "launchCommand": "mkcert",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#mkcert"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install mkcert"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install FiloSottile.mkcert"
+        }
+      ]
+    },
+    {
+      "id": "fx",
+      "name": "fx",
+      "description": "Terminal JSON viewer and processor.",
+      "categories": [
+        "utility",
+        "data",
+        "development"
+      ],
+      "homepage": "https://fx.wtf",
+      "docs": "https://fx.wtf/docs/",
+      "verifyCommand": "fx --version",
+      "launchCommand": "fx",
+      "install": [
+        {
+          "context": "default/npm-global",
+          "command": "npm install -g fx"
+        },
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#fx"
+        }
+      ]
+    },
+    {
+      "id": "render",
+      "name": "Render CLI",
+      "description": "Manage Render.com services and deployments.",
+      "categories": [
+        "deployment",
+        "hosting",
+        "backend"
+      ],
+      "homepage": "https://render.com",
+      "docs": "https://render.com/docs/cli",
+      "verifyCommand": "render --version",
+      "launchCommand": "render",
+      "install": [
+        {
+          "context": "default/npm-global",
+          "command": "npm install -g @render/cli"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install render"
+        }
+      ]
+    },
+    {
+      "id": "hcloud",
+      "name": "Hetzner Cloud CLI",
+      "description": "Manage Hetzner Cloud servers and resources.",
+      "categories": [
+        "cloud",
+        "devops"
+      ],
+      "homepage": "https://www.hetzner.com/cloud",
+      "docs": "https://github.com/hetznercloud/cli",
+      "verifyCommand": "hcloud version",
+      "launchCommand": "hcloud",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": "nix profile install nixpkgs#hcloud"
+        },
+        {
+          "context": "macos/homebrew",
+          "command": "brew install hcloud"
+        },
+        {
+          "context": "windows/winget",
+          "command": "winget install HetznerCloud.hcloud"
+        }
+      ]
+    }
+  ]
+}

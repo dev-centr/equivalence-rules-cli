@@ -1,0 +1,38 @@
+= CLI Tools Catalog SDL Conventions
+
+== Top-level block
+
+`cliToolsCatalog { version meta contexts tools }`
+
+== Contexts
+
+Each `context` block describes a host + package-manager combination:
+
+* `id` — path used with `--to` (e.g. `linux/nix/default`)
+* `mutable` — `true` for winget/brew/apt; `false` for Nix (promote immutable workflows)
+* `packageManager` — short id (`winget`, `nix`, `homebrew`, …)
+* `detect` — optional command DevCentr runs to see if this context applies
+
+Contexts inherit like filesystem rules: `linux/ubuntu/default` inherits `linux/debian/default`.
+
+== Tools
+
+Each `tool` block:
+
+* `id`, `name`, `description`, `categories[]`, `homepage`, `docs`
+* `verifyCommand` — post-install check
+* `launchCommand` — binary on PATH
+* `install { method { … } }` — one block per context
+
+Each `method`:
+
+* `context` — must match a declared context id
+* `command` — shell command (runs interactively for audit)
+* `interactive` — default `true`
+* `mutable` — overrides context default when needed
+* `fallback` — use when no native package exists
+* `auditNote` — human-readable note stored in install audit log
+
+== Immutable OS promotion
+
+Always define `linux/nix/default` and `macos/nix/default` methods where a nixpkgs attribute exists, even when mutable package managers also work. When Guix packages exist, add `linux/guix/default` with `mutable false`. DevCentr sorts immutable methods first when the user enables “Prefer immutable installs” in settings.

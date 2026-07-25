@@ -1,0 +1,13 @@
+*
+!/.gitignore
+!/README.adoc
+!/package.json
+!/pnpm-lock.yaml
+!/catalog/
+!/catalog/**
+!/scripts/
+!/scripts/**
+!/docs/
+!/docs/**
+!/contexts/
+!/contexts/**
