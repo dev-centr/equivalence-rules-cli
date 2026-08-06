@@ -1,4 +1,30 @@
+ifndef::env-github[:icons: font]
+:toc: preamble
+:toclevels: 2
+:sectanchors:
+
+ifndef::env-github[]
+image:https://img.shields.io/github/contributors/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Contributors,link=https://github.com/dev-centr/equivalence-rules-cli/graphs/contributors]
+image:https://img.shields.io/github/forks/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Forks,link=https://github.com/dev-centr/equivalence-rules-cli/network/members]
+image:https://img.shields.io/github/stars/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Stars,link=https://github.com/dev-centr/equivalence-rules-cli/stargazers]
+image:https://img.shields.io/github/issues/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Issues,link=https://github.com/dev-centr/equivalence-rules-cli/issues]
+endif::[]
+
+ifdef::env-github[]
+image:https://img.shields.io/github/contributors/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Contributors]
+image:https://img.shields.io/github/forks/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Forks]
+image:https://img.shields.io/github/stars/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Stars]
+image:https://img.shields.io/github/issues/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Issues]
+endif::[]
+
 = equivalence-rules-cli
+
+Cross-platform CLI tool install profiles for DevCentr (Equivalence Engine cli domain).
+
+link:https://github.com/dev-centr/equivalence-rules-cli/issues[Report Bug] ·
+link:https://github.com/dev-centr/equivalence-rules-cli/issues[Request Feature]
+
+== About The Project
 
 Canonical **CLI tool install profiles** for DevCentr. Each tool defines cross-platform install commands resolved by host context (Windows winget/scoop, macOS Homebrew, Linux apt/dnf/pacman/apk, and **immutable** Nix profiles).
 
@@ -15,14 +41,16 @@ scripts/compile-sdl.mjs # SDL → JSON
 docs/SDL-CONVENTIONS.adoc
 ----
 
-== Edit workflow
+== Usage
+
+=== Edit workflow
 
 1. Change `catalog/tools.sdl` or add tools under `catalog/tools/`.
 2. Run `pnpm exec node scripts/compile-sdl.mjs` and commit both `.sdl` and `.json`.
 3. DevCentr desktop pulls via `git` (Settings → CLI tools definitions repo URL).
 4. Install scripts run **interactively**; DevCentr records stdout/stderr under `~/.dev-center/install-audit/`.
 
-== Resolve via Equivalence Engine
+=== Resolve via Equivalence Engine
 
 [source,bash]
 ----
@@ -43,3 +71,10 @@ equivalence-engine --domain cli --to linux/nix/default gh
 * link:https://github.com/dev-centr/equivalence-engine[equivalence-engine]
 * link:https://github.com/dev-centr/libequivalence[libequivalence]
 * DevCentr spec: `devcentr/docs/modules/specifications/pages/components/cli-tools-catalog.adoc`
+
+== Contact
+
+DevCentr.org — support@devcentr.org
+
+* Project: https://github.com/dev-centr/equivalence-rules-cli
+* Site: https://devcentr.org
