@@ -3,19 +3,11 @@ ifndef::env-github[:icons: font]
 :toclevels: 2
 :sectanchors:
 
-ifndef::env-github[]
+[[readme-top]]
 image:https://img.shields.io/github/contributors/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Contributors,link=https://github.com/dev-centr/equivalence-rules-cli/graphs/contributors]
 image:https://img.shields.io/github/forks/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Forks,link=https://github.com/dev-centr/equivalence-rules-cli/network/members]
 image:https://img.shields.io/github/stars/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Stars,link=https://github.com/dev-centr/equivalence-rules-cli/stargazers]
 image:https://img.shields.io/github/issues/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Issues,link=https://github.com/dev-centr/equivalence-rules-cli/issues]
-endif::[]
-
-ifdef::env-github[]
-image:https://img.shields.io/github/contributors/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Contributors]
-image:https://img.shields.io/github/forks/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Forks]
-image:https://img.shields.io/github/stars/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Stars]
-image:https://img.shields.io/github/issues/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Issues]
-endif::[]
 
 = equivalence-rules-cli
 
@@ -29,6 +21,8 @@ link:https://github.com/dev-centr/equivalence-rules-cli/issues[Request Feature]
 Canonical **CLI tool install profiles** for DevCentr. Each tool defines cross-platform install commands resolved by host context (Windows winget/scoop, macOS Homebrew, Linux apt/dnf/pacman/apk, and **immutable** Nix profiles).
 
 Uses the link:https://github.com/dev-centr/equivalence-engine[Equivalence Engine] `cli` domain to resolve `context + toolId` → install command, or load the compiled catalog directly in DevCentr.
+
+link:#readme-top[back to top]
 
 == Layout
 
@@ -66,6 +60,8 @@ Prefer immutable contexts when available:
 equivalence-engine --domain cli --to linux/nix/default gh
 ----
 
+link:#readme-top[back to top]
+
 == Related
 
 * link:https://github.com/dev-centr/equivalence-engine[equivalence-engine]
@@ -78,3 +74,5 @@ DevCentr.org — support@devcentr.org
 
 * Project: https://github.com/dev-centr/equivalence-rules-cli
 * Site: https://devcentr.org
+
+link:#readme-top[back to top]
