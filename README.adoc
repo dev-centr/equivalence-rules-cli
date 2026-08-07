@@ -3,7 +3,27 @@ ifndef::env-github[:icons: font]
 :toclevels: 2
 :sectanchors:
 
-[[readme-top]]
+ifdef::env-github[]
+++++
+<a id="readme-top"></a>
+<div align="center">
+<a href="https://github.com/dev-centr/equivalence-rules-cli/graphs/contributors"><img src="https://img.shields.io/github/contributors/dev-centr/equivalence-rules-cli.svg?style=for-the-badge" alt="Contributors"></a>
+<a href="https://github.com/dev-centr/equivalence-rules-cli/network/members"><img src="https://img.shields.io/github/forks/dev-centr/equivalence-rules-cli.svg?style=for-the-badge" alt="Forks"></a>
+<a href="https://github.com/dev-centr/equivalence-rules-cli/stargazers"><img src="https://img.shields.io/github/stars/dev-centr/equivalence-rules-cli.svg?style=for-the-badge" alt="Stars"></a>
+<a href="https://github.com/dev-centr/equivalence-rules-cli/issues"><img src="https://img.shields.io/github/issues/dev-centr/equivalence-rules-cli.svg?style=for-the-badge" alt="Issues"></a>
+<br />
+<h3 align="center">equivalence-rules-cli</h3>
+<p align="center">
+Cross-platform CLI tool install profiles for DevCentr (Equivalence Engine cli domain).<br /><br />
+<a href="https://github.com/dev-centr/equivalence-rules-cli/issues">Report Bug</a>
+&middot;
+<a href="https://github.com/dev-centr/equivalence-rules-cli/issues">Request Feature</a>
+</p>
+</div>
+++++
+endif::[]
+
+ifndef::env-github[]
 image:https://img.shields.io/github/contributors/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Contributors,link=https://github.com/dev-centr/equivalence-rules-cli/graphs/contributors]
 image:https://img.shields.io/github/forks/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Forks,link=https://github.com/dev-centr/equivalence-rules-cli/network/members]
 image:https://img.shields.io/github/stars/dev-centr/equivalence-rules-cli.svg?style=for-the-badge[Stars,link=https://github.com/dev-centr/equivalence-rules-cli/stargazers]
@@ -15,6 +35,7 @@ Cross-platform CLI tool install profiles for DevCentr (Equivalence Engine cli do
 
 link:https://github.com/dev-centr/equivalence-rules-cli/issues[Report Bug] ·
 link:https://github.com/dev-centr/equivalence-rules-cli/issues[Request Feature]
+endif::[]
 
 == About The Project
 
