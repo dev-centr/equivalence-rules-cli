@@ -43,6 +43,10 @@ Canonical **CLI tool install profiles** for DevCentr. Each tool defines cross-pl
 
 Uses the link:https://github.com/dev-centr/equivalence-engine[Equivalence Engine] `cli` domain to resolve `context + toolId` → install command, or load the compiled catalog directly in DevCentr.
 
+Each context has a `format` facet (`winget`, `deb`, `nix`, …). That is a **column**, not a new `--to` path. Do not write `windows/pwsh/msi`. List every compatible method with `equivalence-engine --domain cli --list gh`. PlayTime (Scriptbook) uses that list so one `.cmk` playbook can install a tool on every OS.
+
+See `docs/SDL-CONVENTIONS.adoc`.
+
 link:#readme-top[back to top]
 
 == Layout

@@ -1,19 +1,65 @@
 = CLI Tools Catalog SDL Conventions
+:description: How to write install methods. Format and runtime are columns, not extra path segments.
+
+Write this so someone with no background can follow.
+
+== What do I need?
+
+The file `catalog/tools.sdl`. After you edit it, run `pnpm exec node scripts/compile-sdl.mjs` and commit both `.sdl` and `.json`.
 
 == Top-level block
 
 `cliToolsCatalog { version meta contexts tools }`
+
+== Intent registry
+
+A playbook step names an **intent id**. For this catalog the intent is `cli.install`. The `tool` argument is the tool `id`.
+
+Later catalogs may add other ids (`fs.path`, `os.version`, `service.enable`). Do **not** register `os.family` / `host.detect` as an intent that starts a run. PlayTime already knows the OS (Host Awareness). `os.version` as a *later* playbook step is fine.
+
+Each method is either:
+
+* **Ground** — a command to run (argv preferred, or one shell string). This is the bottom. Stop here.
+* **Expand** — a list of other intent ids to run instead. PlayTime walks that list. It must not open a `.cmk` file.
+
+Unknown intent id = author error, not another nesting level.
 
 == Contexts
 
 Each `context` block describes a host + package-manager combination:
 
 * `id` — path used with `--to` (e.g. `linux/nix/default`)
-* `mutable` — `true` for winget/brew/apt; `false` for Nix (promote immutable workflows)
+* `family` — `windows`, `linux`, `macos`, `cross`
 * `packageManager` — short id (`winget`, `nix`, `homebrew`, …)
-* `detect` — optional command DevCentr runs to see if this context applies
+* `format` — installer kind (see below). If omitted, inferred from `packageManager`
+* `mutable` — `true` for winget/brew/apt; `false` for Nix
+* `detect` — optional command a GUI may run. PlayTime prefers PATH lookup, not `where` vs `which`
+* `inherits` — optional parent context id
 
 Contexts inherit like filesystem rules: `linux/ubuntu/default` inherits `linux/debian/default`.
+
+`--to` is a **host alias**. Never put a shell in it. `windows/pwsh/msi` is forbidden. That would explode into a grid of format × shell.
+
+== Formats
+
+`format` is a column on the method (or inherited from the context). It is not a new Equivalence Engine graph.
+
+Known values: `msi`, `exe`, `deb`, `rpm`, `flatpak`, `snap`, `appimage`, `nix`, `guix`, `winget`, `scoop`, `choco`, `brew`, `pacman`, `apk`, `npm`, `pnpm`, `script`.
+
+A host can run a format only if it has the matching capability (for example `flatpak` needs the `flatpak` program). PlayTime and `listCliInstalls` filter before asking the user.
+
+== Runtime (not shell-as-context)
+
+* `runtime argv` (default) — spawn program + args. No shell.
+* `runtime bash` / `pwsh` / `nu` — this method **is** a script. Skip it if that runtime is missing.
+
+One string in `command` is a legacy shell line (the runner may pass it to a shell). Several strings are argv:
+
+----
+command "winget" "install" "--id" "GitHub.cli" "-e"
+----
+
+Do not author one row per `(format × shell)` pair. `winget` in pwsh and `winget` in Nushell are the same row.
 
 == Tools
 
@@ -27,11 +73,19 @@ Each `tool` block:
 Each `method`:
 
 * `context` — must match a declared context id
-* `command` — shell command (runs interactively for audit)
+* `command` — argv list or one shell string
+* `format` — optional override of the context format
+* `runtime` — `argv` (default) or `bash` / `pwsh` / `nu`
+* `expand` — optional list of intent ids instead of a command
 * `interactive` — default `true`
 * `mutable` — overrides context default when needed
 * `fallback` — use when no native package exists
-* `auditNote` — human-readable note stored in install audit log
+* `auditNote` — human-readable note stored in the install audit log
+
+== Pick one vs list all
+
+* **Pick one** (`resolveCliInstall`): exact context → inherit parent → fallback. If several match, prefer immutable when asked.
+* **List all** (`listCliInstalls`): every method this host can run (family ∩ format ∩ runtime ∩ detected package managers). The Scriptbook CLI uses this when `--format` is omitted and more than one method remains.
 
 == Immutable OS promotion
 

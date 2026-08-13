@@ -12,6 +12,7 @@
       "label": "Windows (winget)",
       "family": "windows",
       "packageManager": "winget",
+      "format": "winget",
       "detect": "where winget"
     },
     {
@@ -19,6 +20,7 @@
       "label": "Windows (Scoop)",
       "family": "windows",
       "packageManager": "scoop",
+      "format": "scoop",
       "detect": "where scoop"
     },
     {
@@ -26,6 +28,7 @@
       "label": "Windows (Chocolatey)",
       "family": "windows",
       "packageManager": "choco",
+      "format": "choco",
       "detect": "where choco"
     },
     {
@@ -33,6 +36,7 @@
       "label": "macOS (Homebrew)",
       "family": "macos",
       "packageManager": "homebrew",
+      "format": "brew",
       "detect": "which brew"
     },
     {
@@ -40,6 +44,7 @@
       "label": "macOS (Nix)",
       "family": "macos",
       "packageManager": "nix",
+      "format": "nix",
       "detect": "which nix"
     },
     {
@@ -47,6 +52,7 @@
       "label": "Debian/Ubuntu (apt)",
       "family": "linux",
       "packageManager": "apt",
+      "format": "deb",
       "detect": "which apt-get"
     },
     {
@@ -54,6 +60,7 @@
       "label": "Ubuntu (apt)",
       "family": "linux",
       "packageManager": "apt",
+      "format": "deb",
       "inherits": "linux/debian/default"
     },
     {
@@ -61,6 +68,7 @@
       "label": "Fedora/RHEL (dnf)",
       "family": "linux",
       "packageManager": "dnf",
+      "format": "rpm",
       "detect": "which dnf"
     },
     {
@@ -68,6 +76,7 @@
       "label": "Arch Linux (pacman)",
       "family": "linux",
       "packageManager": "pacman",
+      "format": "pacman",
       "detect": "which pacman"
     },
     {
@@ -75,6 +84,7 @@
       "label": "Alpine (apk)",
       "family": "linux",
       "packageManager": "apk",
+      "format": "apk",
       "detect": "which apk"
     },
     {
@@ -82,6 +92,7 @@
       "label": "Linux (Nix)",
       "family": "linux",
       "packageManager": "nix",
+      "format": "nix",
       "detect": "which nix"
     },
     {
@@ -89,6 +100,7 @@
       "label": "GNU Guix",
       "family": "linux",
       "packageManager": "guix",
+      "format": "guix",
       "detect": "which guix"
     },
     {
@@ -96,6 +108,7 @@
       "label": "Linux (Homebrew)",
       "family": "linux",
       "packageManager": "homebrew",
+      "format": "brew",
       "detect": "which brew"
     },
     {
@@ -103,6 +116,7 @@
       "label": "Node.js (npm global)",
       "family": "cross",
       "packageManager": "npm",
+      "format": "npm",
       "detect": "which npm"
     },
     {
@@ -110,13 +124,15 @@
       "label": "Node.js (pnpm dlx one-shot)",
       "family": "cross",
       "packageManager": "pnpm",
+      "format": "pnpm",
       "detect": "which pnpm"
     },
     {
       "id": "default/curl-script",
       "label": "Official install script (curl)",
       "family": "cross",
-      "packageManager": "script"
+      "packageManager": "script",
+      "format": "script"
     }
   ],
   "tools": [

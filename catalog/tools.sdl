@@ -17,6 +17,7 @@ cliToolsCatalog {
             label "Windows (winget)"
             family "windows"
             packageManager "winget"
+            format "winget"
             mutable true
             detect "where winget"
         }
@@ -25,6 +26,7 @@ cliToolsCatalog {
             label "Windows (Scoop)"
             family "windows"
             packageManager "scoop"
+            format "scoop"
             mutable true
             detect "where scoop"
         }
@@ -33,6 +35,7 @@ cliToolsCatalog {
             label "Windows (Chocolatey)"
             family "windows"
             packageManager "choco"
+            format "choco"
             mutable true
             detect "where choco"
         }
@@ -41,6 +44,7 @@ cliToolsCatalog {
             label "macOS (Homebrew)"
             family "macos"
             packageManager "homebrew"
+            format "brew"
             mutable true
             detect "which brew"
         }
@@ -49,6 +53,7 @@ cliToolsCatalog {
             label "macOS (Nix)"
             family "macos"
             packageManager "nix"
+            format "nix"
             mutable false
             detect "which nix"
         }
@@ -57,6 +62,7 @@ cliToolsCatalog {
             label "Debian/Ubuntu (apt)"
             family "linux"
             packageManager "apt"
+            format "deb"
             mutable true
             detect "which apt-get"
         }
@@ -65,6 +71,7 @@ cliToolsCatalog {
             label "Ubuntu (apt)"
             family "linux"
             packageManager "apt"
+            format "deb"
             mutable true
             inherits "linux/debian/default"
         }
@@ -73,6 +80,7 @@ cliToolsCatalog {
             label "Fedora/RHEL (dnf)"
             family "linux"
             packageManager "dnf"
+            format "rpm"
             mutable true
             detect "which dnf"
         }
@@ -81,6 +89,7 @@ cliToolsCatalog {
             label "Arch Linux (pacman)"
             family "linux"
             packageManager "pacman"
+            format "pacman"
             mutable true
             detect "which pacman"
         }
@@ -89,6 +98,7 @@ cliToolsCatalog {
             label "Alpine (apk)"
             family "linux"
             packageManager "apk"
+            format "apk"
             mutable true
             detect "which apk"
         }
@@ -97,6 +107,7 @@ cliToolsCatalog {
             label "Linux (Nix)"
             family "linux"
             packageManager "nix"
+            format "nix"
             mutable false
             detect "which nix"
         }
@@ -105,6 +116,7 @@ cliToolsCatalog {
             label "GNU Guix"
             family "linux"
             packageManager "guix"
+            format "guix"
             mutable false
             detect "which guix"
         }
@@ -113,6 +125,7 @@ cliToolsCatalog {
             label "Linux (Homebrew)"
             family "linux"
             packageManager "homebrew"
+            format "brew"
             mutable true
             detect "which brew"
         }
@@ -121,6 +134,7 @@ cliToolsCatalog {
             label "Node.js (npm global)"
             family "cross"
             packageManager "npm"
+            format "npm"
             mutable true
             detect "which npm"
         }
@@ -129,6 +143,7 @@ cliToolsCatalog {
             label "Node.js (pnpm dlx one-shot)"
             family "cross"
             packageManager "pnpm"
+            format "pnpm"
             mutable true
             detect "which pnpm"
         }
@@ -137,6 +152,7 @@ cliToolsCatalog {
             label "Official install script (curl)"
             family "cross"
             packageManager "script"
+            format "script"
             mutable true
         }
     }
