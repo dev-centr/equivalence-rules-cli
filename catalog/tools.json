@@ -1670,6 +1670,268 @@
           "command": "winget install HetznerCloud.hcloud"
         }
       ]
+    },
+    {
+      "id": "cascadia-mono",
+      "name": "Cascadia Mono",
+      "description": "Microsoft OFL mono without ligatures. DevCentr Appearance default.",
+      "categories": [
+        "font",
+        "typography"
+      ],
+      "homepage": "https://github.com/microsoft/cascadia-code",
+      "docs": "https://github.com/microsoft/cascadia-code",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": [
+            "nix",
+            "profile",
+            "install",
+            "nixpkgs#cascadia-code"
+          ],
+          "auditNote": "nixpkgs cascadia-code includes Cascadia Mono."
+        },
+        {
+          "context": "macos/nix/default",
+          "command": [
+            "nix",
+            "profile",
+            "install",
+            "nixpkgs#cascadia-code"
+          ]
+        },
+        {
+          "context": "macos/homebrew",
+          "command": [
+            "brew",
+            "install",
+            "--cask",
+            "font-cascadia-mono"
+          ]
+        },
+        {
+          "context": "windows/choco",
+          "command": [
+            "choco",
+            "install",
+            "cascadiacode",
+            "-y"
+          ],
+          "auditNote": "Chocolatey cascadiacode; prefer the Mono cut in the host. Cascadia often already ships with Windows Terminal."
+        }
+      ]
+    },
+    {
+      "id": "jetbrains-mono",
+      "name": "JetBrains Mono",
+      "description": "OFL coding mono. DevCentr Appearance supported alternate.",
+      "categories": [
+        "font",
+        "typography"
+      ],
+      "homepage": "https://www.jetbrains.com/lp/mono/",
+      "docs": "https://github.com/JetBrains/JetBrainsMono",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": [
+            "nix",
+            "profile",
+            "install",
+            "nixpkgs#jetbrains-mono"
+          ]
+        },
+        {
+          "context": "macos/nix/default",
+          "command": [
+            "nix",
+            "profile",
+            "install",
+            "nixpkgs#jetbrains-mono"
+          ]
+        },
+        {
+          "context": "macos/homebrew",
+          "command": [
+            "brew",
+            "install",
+            "--cask",
+            "font-jetbrains-mono"
+          ]
+        },
+        {
+          "context": "windows/choco",
+          "command": [
+            "choco",
+            "install",
+            "jetbrainsmono",
+            "-y"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fira-code",
+      "name": "Fira Code",
+      "description": "OFL ligature-first coding mono. Not the DevCentr terminal default.",
+      "categories": [
+        "font",
+        "typography"
+      ],
+      "homepage": "https://github.com/tonsky/FiraCode",
+      "docs": "https://github.com/tonsky/FiraCode",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": [
+            "nix",
+            "profile",
+            "install",
+            "nixpkgs#fira-code"
+          ]
+        },
+        {
+          "context": "macos/nix/default",
+          "command": [
+            "nix",
+            "profile",
+            "install",
+            "nixpkgs#fira-code"
+          ]
+        },
+        {
+          "context": "macos/homebrew",
+          "command": [
+            "brew",
+            "install",
+            "--cask",
+            "font-fira-code"
+          ]
+        },
+        {
+          "context": "windows/choco",
+          "command": [
+            "choco",
+            "install",
+            "firacode",
+            "-y"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iosevka",
+      "name": "Iosevka",
+      "description": "Parametric OFL mono. Not the DevCentr terminal default.",
+      "categories": [
+        "font",
+        "typography"
+      ],
+      "homepage": "https://typeof.net/Iosevka/",
+      "docs": "https://github.com/be5invis/Iosevka",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": [
+            "nix",
+            "profile",
+            "install",
+            "nixpkgs#iosevka"
+          ]
+        },
+        {
+          "context": "macos/nix/default",
+          "command": [
+            "nix",
+            "profile",
+            "install",
+            "nixpkgs#iosevka"
+          ]
+        },
+        {
+          "context": "macos/homebrew",
+          "command": [
+            "brew",
+            "install",
+            "--cask",
+            "font-iosevka"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "monaspace",
+      "name": "GitHub Monaspace",
+      "description": "GitHub Next OFL coding superfamily.",
+      "categories": [
+        "font",
+        "typography"
+      ],
+      "homepage": "https://monaspace.githubnext.com/",
+      "docs": "https://github.com/githubnext/monaspace",
+      "install": [
+        {
+          "context": "macos/homebrew",
+          "command": [
+            "brew",
+            "install",
+            "--cask",
+            "font-monaspace"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nerd-fonts-jetbrains-mono",
+      "name": "JetBrains Mono Nerd Font",
+      "description": "Nerd Fonts patch of JetBrains Mono (CLI glyphs). Reserved-name patch, not a new foundry.",
+      "categories": [
+        "font",
+        "typography"
+      ],
+      "homepage": "https://www.nerdfonts.com/",
+      "docs": "https://github.com/ryanoasis/nerd-fonts",
+      "install": [
+        {
+          "context": "linux/nix/default",
+          "command": [
+            "nix",
+            "profile",
+            "install",
+            "nixpkgs#nerd-fonts.jetbrains-mono"
+          ]
+        },
+        {
+          "context": "macos/nix/default",
+          "command": [
+            "nix",
+            "profile",
+            "install",
+            "nixpkgs#nerd-fonts.jetbrains-mono"
+          ]
+        },
+        {
+          "context": "macos/homebrew",
+          "command": [
+            "brew",
+            "install",
+            "--cask",
+            "font-jetbrains-mono-nerd-font"
+          ]
+        },
+        {
+          "context": "windows/winget",
+          "command": [
+            "winget",
+            "install",
+            "--id",
+            "DEVCOM.JetBrainsMonoNerdFont",
+            "-e"
+          ],
+          "auditNote": "Community WiX installer on winget, not an official JetBrains package."
+        }
+      ]
     }
   ]
 }

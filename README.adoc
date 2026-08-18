@@ -47,6 +47,8 @@ Each context has a `format` facet (`winget`, `deb`, `nix`, …). That is a **col
 
 See `docs/SDL-CONVENTIONS.adoc`.
 
+Changelog: link:changelog.adoc[changelog.adoc].
+
 link:#readme-top[back to top]
 
 == Layout
