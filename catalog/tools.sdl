@@ -155,6 +155,40 @@ cliToolsCatalog {
             format "script"
             mutable true
         }
+        context {
+            id "default/git-clone"
+            label "Git clone into CODE_ROOT hive"
+            family "cross"
+            packageManager "git"
+            format "script"
+            mutable true
+            detect "which git"
+        }
+        context {
+            id "windows/pwsh-script"
+            label "Windows (PowerShell script)"
+            family "windows"
+            packageManager "script"
+            format "script"
+            mutable true
+            detect "where pwsh"
+        }
+        context {
+            id "macos/curl-script"
+            label "macOS (curl script)"
+            family "macos"
+            packageManager "script"
+            format "script"
+            mutable true
+        }
+        context {
+            id "linux/curl-script"
+            label "Linux (curl script)"
+            family "linux"
+            packageManager "script"
+            format "script"
+            mutable true
+        }
     }
 
     tools {
@@ -1789,6 +1823,56 @@ cliToolsCatalog {
                     context "windows/winget"
                     command "winget" "install" "--id" "DEVCOM.JetBrainsMonoNerdFont" "-e"
                     auditNote "Community WiX installer on winget, not an official JetBrains package."
+                }
+            }
+        }
+
+        // ── Dev-Centr workstation tools ───────────────────────────────────
+        tool {
+            id "hive-watch"
+            name "Hive Watch"
+            description "Daemon + tray HUD: fetch git remotes across CODE_ROOT, stamp machine.md, reduce agent fetch duty."
+            categories "devcentr" "git" "agent" "daemon"
+            homepage "https://github.com/dev-centr/hive-watch"
+            docs "https://github.com/dev-centr/hive-watch#readme"
+            verifyCommand "hive-watch-ui --version"
+            launchCommand "hive-watch-ui"
+            install {
+                method {
+                    context "windows/pwsh-script"
+                    runtime "pwsh"
+                    command "irm https://github.com/dev-centr/hive-watch/releases/latest/download/hive-watch-windows-setup.exe -OutFile $env:TEMP\\hive-watch-setup.exe; Start-Process -Wait $env:TEMP\\hive-watch-setup.exe"
+                    auditNote "Download latest Windows NSIS installer from GitHub Releases."
+                }
+                method {
+                    context "macos/curl-script"
+                    runtime "bash"
+                    command "curl -fsSL -o /tmp/hive-watch.dmg https://github.com/dev-centr/hive-watch/releases/latest/download/Hive%20Watch-0.1.0.dmg && open /tmp/hive-watch.dmg"
+                    auditNote "Mount DMG and drag Hive Watch to Applications."
+                }
+                method {
+                    context "linux/curl-script"
+                    runtime "bash"
+                    command "curl -fsSL -o /tmp/hive-watch.AppImage https://github.com/dev-centr/hive-watch/releases/latest/download/Hive%20Watch-0.1.0.AppImage && chmod +x /tmp/hive-watch.AppImage && mv /tmp/hive-watch.AppImage $HOME/.local/bin/hive-watch.AppImage"
+                    auditNote "AppImage path may vary by release asset name."
+                }
+            }
+        }
+
+        tool {
+            id "rules-manager"
+            name "Rules Manager"
+            description "Compose and watch agent-rules (rulesd daemon + tray). Pairs with hive-watch for remotes vs rules layers."
+            categories "devcentr" "agent" "daemon"
+            homepage "https://github.com/dev-centr/rules-manager"
+            docs "https://github.com/dev-centr/rules-manager#readme"
+            verifyCommand "rulesd --version"
+            launchCommand "rules-manager-ui"
+            install {
+                method {
+                    context "default/git-clone"
+                    command "git" "clone" "https://github.com/dev-centr/rules-manager.git" "{code_root}/github.com/dev-centr/rules-manager"
+                    auditNote "Build rulesd (dub) and ui (pnpm) locally until release installers ship."
                 }
             }
         }
