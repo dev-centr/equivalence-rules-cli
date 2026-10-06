@@ -11,3 +11,8 @@
 !/docs/**
 !/contexts/
 !/contexts/**
+!/.github/
+!/.github/workflows/
+!/.github/workflows/encoding-guard.yml
+!/.editorconfig
+!/.gitattributes
