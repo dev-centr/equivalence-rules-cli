@@ -1,5 +1,6 @@
 ifndef::env-github[:icons: font]
-:toc: preamble
+:toc: macro
+:toc-title:
 :toclevels: 2
 :sectanchors:
 
@@ -36,6 +37,15 @@ Cross-platform CLI tool install profiles for DevCentr (Equivalence Engine cli do
 link:https://github.com/dev-centr/equivalence-rules-cli/issues[Report Bug] ·
 link:https://github.com/dev-centr/equivalence-rules-cli/issues[Request Feature]
 endif::[]
+
+++++
+<details>
+<summary>Table of Contents</summary>
+++++
+toc::[]
+++++
+</details>
+++++
 
 == About The Project
 
